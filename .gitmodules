@@ -1,0 +1,6 @@
+[submodule "hcwm_front"]
+	path = hcwm_front
+	url = git@github.com:vvoleman/hcwm_front.git
+[submodule "hcwm"]
+	path = hcwm
+	url = git@github.com:vvoleman/hcwm.git

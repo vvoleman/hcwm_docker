@@ -1,0 +1,71 @@
+version: '3.4'
+services:
+    frontend:
+        build:
+            context: web_frontend
+            dockerfile: docker/Dockerfile
+        container_name: "hcwm_web_front"
+        depends_on:
+            - application
+        networks:
+            - default
+        links:
+            - application
+        volumes:
+            - ./web_frontend:/var/www/html
+            - ~/.ssh:/root/.ssh
+        ports:
+            - "8080:8080"
+
+    #libretranslate:
+    #  build:
+    #    context: ../hcwm_translator
+    #    dockerfile: docker/Dockerfile
+    #  ports:
+    #      - '5000:5000'
+    application:
+        build:
+            context: ./web_backend
+            dockerfile: docker/Dockerfile
+        container_name: "hcwm_web_back"
+        depends_on:
+            - mysql
+            #- libretranslate
+        networks:
+            - default
+        links:
+            - mysql
+            #- libretranslate
+        volumes:
+            - ./web_backend/:/var/www/html
+            - ~/.ssh:/root/.ssh
+        ports:
+            - "9999:80"
+
+    adminer:
+        image: "adminer"
+        container_name: "hcwm_adminer"
+        ports:
+            - "9998:8080"
+        links:
+            - mysql
+
+    mysql:
+        image: mysql
+        # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+        # (this is just an example, not intended to be a production configuration)
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        container_name: "hcwm_mysql"
+        ports:
+            - "3306"
+        networks:
+            - default
+        volumes:
+            - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: odpady
+            MYSQL_USER: 'mysql'
+            MYSQL_PASSWORD: 'mysql'
+            MYSQL_ROOT_HOST: '%'
