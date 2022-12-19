@@ -2,7 +2,7 @@ version: '3.4'
 services:
     frontend:
         build:
-            context: web_frontend
+            context: hcwm_front
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_front"
         depends_on:
@@ -25,7 +25,7 @@ services:
     #      - '5000:5000'
     application:
         build:
-            context: ./web_backend
+            context: ./hcwm
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_back"
         depends_on:
