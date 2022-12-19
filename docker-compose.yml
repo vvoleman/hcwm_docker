@@ -12,7 +12,7 @@ services:
         links:
             - application
         volumes:
-            - ./web_frontend:/var/www/html
+            - ./hcwm_front:/var/www/html
             - ~/.ssh:/root/.ssh
         ports:
             - "8080:8080"
@@ -37,7 +37,7 @@ services:
             - mysql
             #- libretranslate
         volumes:
-            - ./web_backend/:/var/www/html
+            - ./hcwm/:/var/www/html
             - ~/.ssh:/root/.ssh
         ports:
             - "9999:80"
