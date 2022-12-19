@@ -62,7 +62,7 @@ services:
         networks:
             - default
         volumes:
-            - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+            - ./hcwm/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: odpady
