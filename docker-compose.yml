@@ -65,7 +65,7 @@ services:
         volumes:
             - ./hcwm/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
         environment:
-            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: pOcNWRL7sTvk9AhB9ECo
             MYSQL_DATABASE: odpady
             MYSQL_USER: 'mysql'
             MYSQL_PASSWORD: 'mysql'
