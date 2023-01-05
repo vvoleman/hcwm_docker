@@ -12,10 +12,11 @@ services:
         links:
             - application
         volumes:
-            - ./hcwm_front:/var/www/html
+            - ./hcwm_front:/app
             - ~/.ssh:/root/.ssh
         ports:
             - "8080:8080"
+            - "80:80"
 
     #libretranslate:
     #  build:
