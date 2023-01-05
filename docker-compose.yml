@@ -13,6 +13,7 @@ services:
             - application
         volumes:
             - ./hcwm_front:/app
+            - ./hcwm_front/dist:/usr/share/nginx/html
             - ~/.ssh:/root/.ssh
         ports:
             - "8080:8080"
