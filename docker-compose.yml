@@ -1,16 +1,16 @@
 version: '3.4'
 services:
-    frontend:
+    hcwm_front:
         build:
             context: hcwm_front
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_front"
         depends_on:
-            - application
+            - hcwm_backend
         networks:
             - default
         links:
-            - application
+            - hcwm_backend
         volumes:
             - ./hcwm_front:/app
             - ./hcwm_front/dist:/usr/share/nginx/html
@@ -25,18 +25,15 @@ services:
     #    dockerfile: docker/Dockerfile
     #  ports:
     #      - '5000:5000'
-    application:
+    hcwm_backend:
         build:
             context: ./hcwm
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_back"
-        depends_on:
-            - mysql
-            #- libretranslate
         networks:
             - default
         links:
-            - mysql
+            - hcwm_mysql
             #- libretranslate
         volumes:
             - ./hcwm/:/var/www/html
@@ -44,15 +41,15 @@ services:
         ports:
             - "9999:80"
 
-    adminer:
+    hcwm_adminer:
         image: "adminer"
         container_name: "hcwm_adminer"
         ports:
             - "9998:8080"
         links:
-            - mysql
+            - hcwm_mysql
 
-    mysql:
+    hcwm_mysql:
         image: mysql
         # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
         # (this is just an example, not intended to be a production configuration)
