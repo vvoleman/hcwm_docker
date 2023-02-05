@@ -39,13 +39,13 @@ services:
             - ./hcwm/:/var/www/html
             - ~/.ssh:/root/.ssh
         ports:
-            - "9999:80"
+            - "3000:80"
 
     hcwm_adminer:
         image: "adminer"
         container_name: "hcwm_adminer"
         ports:
-            - "9998:8080"
+            - "9997:8080"
         links:
             - hcwm_mysql
 
