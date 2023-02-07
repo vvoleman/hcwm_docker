@@ -13,9 +13,6 @@ services:
             - hcwm_backend
         volumes:
             - ./hcwm_front:/app
-            - ./hcwm_front/dist:/usr/share/nginx/html
-            - ./hcwm_front/node_modules:/app/node_modules
-            - ~/.ssh:/root/.ssh
         ports:
             - "8080:8080"
             - "80:80"
