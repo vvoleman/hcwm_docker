@@ -5,6 +5,8 @@ services:
             context: hcwm_front
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_front"
+        env_file:
+            -   .env
         depends_on:
             - hcwm_backend
         networks:
@@ -15,7 +17,7 @@ services:
             - ./hcwm_front:/app
         ports:
             - "8080:8080"
-            - "80:80"
+            - "${FRONT_APP_PORT_EXTERNAL}:80"
 
     #libretranslate:
     #  build:
@@ -28,6 +30,8 @@ services:
             context: ./hcwm
             dockerfile: docker/Dockerfile
         container_name: "hcwm_web_back"
+        env_file:
+            -   .env
         networks:
             - default
         links:
@@ -37,7 +41,7 @@ services:
             - ./hcwm/:/var/www/html
             - ~/.ssh:/root/.ssh
         ports:
-            - "3000:80"
+            - "${BACK_APP_PORT_EXTERNAL}:80"
 
     hcwm_adminer:
         image: "adminer"
@@ -55,14 +59,14 @@ services:
         restart: always
         container_name: "hcwm_mysql"
         ports:
-            - "3306"
+            - "${DB_PORT_EXTERNAL}:3306"
         networks:
             - default
         volumes:
             - ./hcwm/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
         environment:
-            MYSQL_ROOT_PASSWORD: pOcNWRL7sTvk9AhB9ECo
-            MYSQL_DATABASE: odpady
-            MYSQL_USER: 'mysql'
-            MYSQL_PASSWORD: 'mysql'
+            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+            MYSQL_DATABASE: '${DB_NAME}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: '%'
