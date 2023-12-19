@@ -16,7 +16,6 @@ services:
         volumes:
             - ./hcwm_front:/app
         ports:
-            - "8080:8080"
             - "${FRONT_APP_PORT_EXTERNAL}:80"
 
     #libretranslate:
